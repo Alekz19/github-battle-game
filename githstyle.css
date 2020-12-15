@@ -1,0 +1,133 @@
+	body {
+		margin: 0;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif, cursive;
+		background-image: url('images/photo.jpg');
+		background-size: 100%;
+		background-repeat: no-repeat;
+	}
+	input[type=text] {
+		-moz-box-sizing: border-box; 
+		box-sizing: border-box;
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+		border: 1px solid #999;
+		margin: 50px 0 15px;
+	}
+	.body-container{
+		margin: 0;
+		text-align: center;
+	}
+	.body-container p{
+		font-size: 16px;
+		padding-bottom: 5px;
+	}
+	.head-text{
+		padding-top: 60px;
+		margin-bottom: -10px;
+		font-size: 36px;
+	}
+	#confirm-players{
+		font-size: 30px;
+		margin: 10px 0 5px;
+	}
+	#get-started-button{
+		font-size: 18px;
+		font-weight: 10%;
+		border: none;
+		width:150px;
+		word-spacing: 2px;
+		border-radius: 5px;
+		height: 40px;
+		background-color: green;
+		color: white
+	}
+	.continue-button{
+		font-size: 18px;
+		word-spacing: 2px;
+		border: none;
+		width:200px;
+		border-radius: 5px;
+		height:40px;
+		background-color: green;
+		color: white
+	}
+	#get-started-button:hover,
+	.continue-button:hover,
+	#initiate-battle:hover {
+		background-color: darkgreen;
+	} 
+	.github-username{
+		width: 65%;
+		height: 35px;
+		padding: 10px;
+		margin: 20px 0 15px;
+	}
+	#score,
+	#score2 {
+		font-size: 18px;
+		font-weight: bolder;
+		display: none;
+		text-align: center;
+	}
+	#player-one,
+	#player-two {
+		display: none;
+	}
+
+	#confirm-page,
+	#winner {
+		display: none;
+		margin: 20px 0 10px;
+	}
+	#initiate-battle, 
+	#play-again {
+		font-size: 18px;
+		border: none;
+		width: 200px;
+		border-radius: 5px;
+		word-spacing: 2px;
+		letter-spacing: 0.4px;
+		height: 40px;
+		background-color: green;
+		color: white;                
+		margin: 15px auto 5px;
+	}
+	#reselect-players {
+		font-size: 18px;
+		border: none;    
+		word-spacing: 2px;
+		letter-spacing: 0.4px;
+		width: 240px;
+		border-radius: 5px;
+		height: 35px;
+		background-color: cornflowerblue;
+		color: white;
+		margin: 10px auto;
+	}
+	#control-buttons {
+		display: none;
+	}
+	#reselect-players:hover {
+		background-color: darkslateblue;
+	}
+	.avatar {
+		border-radius:50%;
+		height: 200px;
+		width: 200px;
+	}
+	.myUsers {
+		display:inline-block;
+		margin: 0 5px 0 10px;
+	}
+	ul {
+		margin-left: -30px;
+	}
+	li {
+		list-style: none;
+		padding: 5px;
+		text-align: left;
+		border: 1px solid grey;
+	}
+	#firstPlayer,
+	#secondPlayer {
+		margin-bottom: 0;
+	}

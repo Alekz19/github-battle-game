@@ -118,7 +118,7 @@ initiate.onclick = function () {
 };
 
 reSelect.onclick = function () {
-	confirmPage.style.display = "none";
+	document.getElementById('confirm-page').style.display = "none";
 	player1.style.display = "block"; 
 	user[0].value = null;
 	user[1].value = null;

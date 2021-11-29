@@ -24,93 +24,97 @@ getStarted();
 
 // Function that initiates player 1 input
 function firstForm() {
-    player1.style.display = "none";
-    player2.style.display = "block";
+    // Function that fetches users data from input
+    (async() => {
+        let res = await fetch("https://api.github.com/users/" + users[0].value);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        player1.style.display = "none";
+        player2.style.display = "block";
+        return res.json()
+            .then((data) => {
+                // Log the data to the console
+                console.log(data);
+                player[0] = data;
+            });
+
+    })().catch(function(err) {
+        alert(`Player not found, ${users[0].value} is not an active user. Please try again!`);
+        form1.reset();
+        console.log(err);
+    })
     return false;
 };
 
 // Function that initiates player 2 input
 function secondForm() {
     let confirmPage = document.getElementById('confirm-page');
-    player2.style.display = "none";
-    confirmPage.style.display = "block";
-
-    // Function that fetches users data from input
-    async function getUsers(username1, username2) {
-        let init = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            cache: 'default'
-        };
-
-        function checkError(response) {
-            if (!response.ok) {
-                throw Error(response.statusText)
-            }
-            return response.json();
+    (async() => {
+        let res = await fetch("https://api.github.com/users/" + users[1].value);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
         }
-
-        let res = await fetch("https://api.github.com/users/" + username1, init)
-            .then(checkError)
-            .then(function(data) {
-                // Log the data to the console
-                console.log(data);
-                player[0] = data;
-            })
-            .catch(function(err) {
-                alert(`There is an error fetching` + " " + `${username1}` + " " + `${response.message}`);
-                console.log(err)
-                location.reload();
-            })
-        return fetch("https://api.github.com/users/" + username2, init)
-            .then(checkError)
-            .then(function(data) {
+        player2.style.display = "none";
+        confirmPage.style.display = "block";
+        return res.json()
+            .then((data) => {
                 // Log the data to the console
                 console.log(data);
                 player[1] = data;
-            })
-            .catch(function(err) {
-                alert(`There is an error fetching` + " " + `${username2}`);
-                console.log(err)
-                location.reload();
             });
+
+    })().catch(function(err) {
+        alert(`Player not found, ${users[1].value} is not an active user. Please try again!`);
+        form2.reset();
+        console.log(err);
+    });
+
+    document.getElementById('userDiv').innerHTML = `<div id="spinner" class ="lds-spinner">
+    <div></div> 
+    <div></div> 
+    <div></div> 
+    <div></div> 
+    <div></div> 
+    <div></div> 
+    <div></div> 
+    <div></div> 
+    <div></div>
+    <div></div> 
+    <div></div> 
+    <div></div>
+</div>`
+
+    //function that calculate users scores
+    function calculateScores(k) {
+        return (1 * k.followers + 1 * k.following + 0.5 * k.public_repos);
+    };
+
+    //function that create user profile
+    function userProfile(k, num) {
+        return `<div id="user-container" class="myUser"></div>
+                            <ul>
+                                <p class="playersDetails"> Player ${num} </p>
+                                <li class="score">Score: <span class="totalScr"> ${calculateScores(k)}</span> </li>
+                                <li><img class="avatar" src="${k.avatar_url}"></li>
+                                <li class="info">Name: ${k.name} </li>
+                                <li class="info">Username: ${k.login} </li>
+                                <li class="info">Following: ${k.following} </li>
+                                <li class="info">Followers: ${k.followers} </li>
+                                <li class="info">Repository: ${k.public_repos} </li>
+                            </ul>
+                        </div>`;
     }
-    getUsers(users[0].value, users[1].value);
 
     setTimeout(function() {
-        //function that calculate users scores
-        let calculateScores = function(k) {
-            return (1 * k.followers + 1 * k.following + 0.5 * k.public_repos);
-        }
-
-        //function that create user profile
-        function userProfile(k, num) {
-            return `<div id="user-container" class="myUser"></div>
-                    <ul>
-                        <p class="playersDetails"> Player ${num} </p>
-                        <li class="score">Score: <span class="totalScr"> ${calculateScores(k)}</span> </li>
-                        <li><img class="avatar" src="${k.avatar_url}"></li>
-                        <li class="info">Name: ${k.name} </li>
-                        <li class="info">Username: ${k.login} </li>
-                        <li class="info">Following: ${k.following} </li>
-                        <li class="info">Followers: ${k.followers} </li>
-                        <li class="info">Repository: ${k.public_repos} </li>
-                    </ul>
-                </div>`;
-
-        }
-
-        let myUsers = document.getElementById('userDiv');
-        myUsers.innerHTML = userProfile(player[0], 1) + userProfile(player[1], 2);
-        document.getElementById('control-buttons').style.display = "block";
-        playAgain.style.display = "none";
-    }, 2000);
+            document.getElementById('userDiv').innerHTML = userProfile(player[0], 1) + userProfile(player[1], 2);
+            document.getElementById('control-buttons').style.display = "block";
+        },
+        1500);
+    playAgain.style.display = "none";
     return false;
-
 };
+
 //Function that assign users score and winner
 initiate.onclick = function() {
     document.getElementById("confirm-players").innerHTML = "Winner";
@@ -149,4 +153,4 @@ reSelect.onclick = function() {
 playAgain.onclick = function() {
     //Make this function start the game again, following the usual pattern
     location.reload();
-};
+}
